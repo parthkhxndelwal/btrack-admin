@@ -28,9 +28,6 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Start the loading bar immediately
-      ref.current.staticStart();
-
       const { data } = await axios.post(
         "http://localhost:4000/login",
         {
@@ -41,12 +38,9 @@ function Login() {
       if (data) {
         if (data.errors) {
           const { email, password } = data.errors;
-          if (email) generateError(email);
-          else if (password) generateError(password);
+          if (email) {generateError(email); ref.current.complete();}
+          else if (password) {generateError(password); ref.current.complete();}
         } else {
-          setTimeout(() => {
-            ref.current.complete();
-          }, 1000);
           setTimeout(() => {
             navigate("/");
           }, 500);
@@ -59,7 +53,7 @@ function Login() {
 
   return (
     <>
-      <LoadingBar color="#000000" ref={ref} /> {/* Add the LoadingBar component */}
+      <LoadingBar waitingTime={2000} height={5} color='#3e4684' ref={ref} />
       <form autoComplete="false" onSubmit={(e) => handleSubmit(e)}>
         <div className="screen-1">
           <img src={UnlockPNG} alt="" />

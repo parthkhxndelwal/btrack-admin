@@ -61,7 +61,7 @@ function Register() {
 
   return (
     <>
-      <LoadingBar color="#000000" ref={ref} /> {/* Add the LoadingBar component */}
+      <LoadingBar waitingTime={2000} height={5} color='#3e4684' ref={ref} />
       <form autoComplete="false" onSubmit={(e) => handleSubmit(e)}>
       <div className="screen-1">
         <img src={Icon}/>
